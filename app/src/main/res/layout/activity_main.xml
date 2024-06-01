@@ -38,14 +38,17 @@
                 android:id="@+id/ageTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:text="TextView" />
+                android:text="@string/ageTitle" />
 
             <TextView
                 android:id="@+id/ageNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="20" />
         </LinearLayout>
 
         <LinearLayout
@@ -58,14 +61,17 @@
                 android:id="@+id/faceTypeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:text="TextView" />
+                android:text="@string/faceTypeTitle" />
 
             <TextView
                 android:id="@+id/faceTypeText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="Berminyak" />
         </LinearLayout>
 
         <LinearLayout
@@ -78,14 +84,17 @@
                 android:id="@+id/alergiTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
                 android:layout_marginBottom="8dp"
-                android:text="TextView" />
+                android:text="@string/alergiTitle" />
 
             <TextView
                 android:id="@+id/alergiText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:gravity="center_horizontal"
+                android:textStyle="bold"
+                android:text="-" />
         </LinearLayout>
     </LinearLayout>
 

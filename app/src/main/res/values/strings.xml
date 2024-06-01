@@ -14,5 +14,9 @@
     <string name="greeting">Halo %1$s,</string>
     <string name="logout">Keluar</string>
     <string name="scanTitle">Masukan foto muka kamu di sini!.</string>
+    <string name="ageTitle">Umur</string>
+    <string name="faceTypeTitle">Tipe kulit</string>
+    <string name="alergiTitle">Alergi</string>
+    <string name="scanButton">Scan Sekarang</string>
 
 </resources>

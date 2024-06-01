@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal"
             android:layout_marginBottom="14dp"
-            android:text="TextView" />
+            android:text="@string/scanTitle" />
 
         <ImageButton
             android:id="@+id/imageButton"
@@ -40,7 +40,7 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Scan Sekarang"
+        android:text="@string/scanButton"
         app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
