@@ -9,6 +9,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivityMainBinding
 import com.bangkit.capstone.facecare.view.ViewModelFactory
+import com.bangkit.capstone.facecare.view.login.LoginActivity
+import com.bangkit.capstone.facecare.view.scan.ScanActivity
 import com.bangkit.capstone.facecare.view.welcome.WelcomeActivity
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +49,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
+        binding.fab.setOnClickListener{
+            startActivity(Intent(this, ScanActivity::class.java))
+        }
 //        binding.logoutButton.setOnClickListener {
 //            viewModel.logout()
 //        }

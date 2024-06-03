@@ -32,7 +32,7 @@
             android:paddingVertical="20dp"
             android:paddingHorizontal="28dp"
             android:scaleType="fitCenter"
-            tools:srcCompat="@drawable/add_image" />
+            android:src="@drawable/add_image" />
 
     </LinearLayout>
 
@@ -40,6 +40,7 @@
         android:id="@+id/button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="14dp"
         android:text="@string/scanButton"
         app:layout_constraintBottom_toBottomOf="parent" />
 
