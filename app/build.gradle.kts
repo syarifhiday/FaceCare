@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.bangkit.capstone.facecare"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.bangkit.capstone.facecare"

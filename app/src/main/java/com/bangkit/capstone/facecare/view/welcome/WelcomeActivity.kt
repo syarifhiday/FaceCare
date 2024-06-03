@@ -8,7 +8,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivityWelcomeBinding
 import com.bangkit.capstone.facecare.view.login.LoginActivity
-import com.bangkit.capstone.facecare.view.signup.SignupActivity
 
 class WelcomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityWelcomeBinding
@@ -36,12 +35,8 @@ class WelcomeActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
+        binding.btn.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
-        }
-
-        binding.signupButton.setOnClickListener {
-            startActivity(Intent(this, SignupActivity::class.java))
         }
     }
 }
