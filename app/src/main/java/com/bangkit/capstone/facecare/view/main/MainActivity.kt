@@ -7,6 +7,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.databinding.ActivityMainBinding
 import com.bangkit.capstone.facecare.view.ViewModelFactory
 import com.bangkit.capstone.facecare.view.login.LoginActivity
@@ -52,9 +53,16 @@ class MainActivity : AppCompatActivity() {
         binding.fab.setOnClickListener{
             startActivity(Intent(this, ScanActivity::class.java))
         }
-//        binding.logoutButton.setOnClickListener {
-//            viewModel.logout()
-//        }
+        binding.topAppBar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.menu1 -> {
+                    viewModel.logout()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
 }
