@@ -20,5 +20,5 @@
     <string name="scanButton">Scan Sekarang</string>
     <string name="jenisPenyakitText">Jenis Penyakit: Whiteheads</string>
     <string name="detailPenyakitText">Whiteheads atau komedo berwarna putih ini juga merupakan jerawat sering muncul di wajah. Whiteheads muncul karena tersumbatnya pori-pori dan menutupi seluruh permukaan sehingga terlihat benjolan putih.\nUntuk mengatasinya, kamu bisa menggunakan produk dengan kandungan AHA, retinoid, benzoyl peroxide, dan salicylic acid yang berfungsi untuk mengangkat sel kulit mati, membunuh bakteri, dan mengurangi peradangan pada area komedo.</string>
-
+    <string name="default_web_client_id">idk</string>
 </resources>

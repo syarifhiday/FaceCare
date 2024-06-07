@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "100778099282",
+    "project_id": "facecare-712da",
+    "storage_bucket": "facecare-712da.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:100778099282:android:2efa443355cc524320558b",
+        "android_client_info": {
+          "package_name": "com.bangkit.capstone.facecare"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "100778099282-7evmp16ga32t71v0sjhv9ainlf7lvmdf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bangkit.capstone.facecare",
+            "certificate_hash": "3a4e8fba2b5d60b5f1afa510511f5eeabe687d09"
+          }
+        },
+        {
+          "client_id": "100778099282-j6eiev8vo6gjajrkamb3t793kjqf2b7m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDErOXHhBeN86oLhcZEuaX7_eNs7C2YX_Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "100778099282-j6eiev8vo6gjajrkamb3t793kjqf2b7m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,7 +6,8 @@
     <color name="cream">#F0EEE7</color>
     <color name="primary">#177C8D</color>
     <color name="secondary">#58BBE0</color>
-
+    <color name="blue">#459DE4</color>
+    <color name="red">#FF0000</color>
     <color name="navy">#2D3D4F</color>
 
 </resources>

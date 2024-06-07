@@ -26,7 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="600dp"
         android:background="@drawable/background"
         android:orientation="vertical"
         android:padding="32dp"
@@ -144,23 +144,64 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/passwordEditTextLayout" />
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineHorizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="64dp"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.4"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#7D7D7D"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/view2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#4D4D4D"
+                android:layout_marginStart="6dp"
+                android:layout_marginEnd="6dp"
+                android:text="Or Login With"/>
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_gravity="center_vertical"
+                android:background="#7D7D7D"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guidelineHorizontal2"
+        <LinearLayout
+            android:gravity="center"
+            android:background="@drawable/border"
             android:layout_width="wrap_content"
-            android:layout_height="64dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintGuide_percent="0.1"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="45dp"
+            android:layout_marginEnd="32dp">
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="11dp"
+                android:layout_marginRight="11dp"
+                android:background="@color/white"
+                android:src="@drawable/google" />
+
+            <Button
+                android:id="@+id/signInButton"
+                android:textAllCaps="false"
+                android:layout_width="200dp"
+                android:layout_height="50dp"
+                android:background="@color/blue"
+                android:text="Sign up with Google"
+                android:textColor="@color/white"
+                android:textSize="20sp" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -189,7 +230,18 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:textAlignment="center"/>
-
         </LinearLayout>
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>
