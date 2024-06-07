@@ -1,5 +1,6 @@
 package com.bangkit.capstone.facecare.view.signup
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
@@ -7,6 +8,8 @@ import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivitySignupBinding
+import com.bangkit.capstone.facecare.view.login.LoginActivity
+import com.bangkit.capstone.facecare.view.main.MainActivity
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
@@ -34,18 +37,32 @@ class SignupActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.signupButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Akun dengan $email sudah jadi nih. Yuk, login dan belajar coding.")
-                setPositiveButton("Lanjut") { _, _ ->
-                    finish()
-                }
-                create()
-                show()
+        with(binding){
+            signupButton.setOnClickListener {
+                val email = binding.emailEditText.text.toString()
+                alert()
             }
+            back.setOnClickListener{
+                finish()
+            }
+            Login.setOnClickListener{
+                finish()
+            }
+        }
+    }
+
+    private fun alert(){
+        AlertDialog.Builder(this).apply {
+            setTitle("Yeah!")
+            setMessage("Akunmu sudah jadi nih. Yuk, login.")
+            setPositiveButton("Lanjut") { _, _ ->
+                val intent = Intent(context, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+            create()
+            show()
         }
     }
 }

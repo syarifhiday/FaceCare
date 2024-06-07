@@ -12,6 +12,7 @@ import com.bangkit.capstone.facecare.data.pref.UserModel
 import com.bangkit.capstone.facecare.databinding.ActivityLoginBinding
 import com.bangkit.capstone.facecare.view.ViewModelFactory
 import com.bangkit.capstone.facecare.view.main.MainActivity
+import com.bangkit.capstone.facecare.view.signup.SignupActivity
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -42,21 +43,31 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-        binding.loginButton.setOnClickListener {
-            val email = binding.emailEditText.text.toString()
-            viewModel.saveSession(UserModel(email, "sample_token"))
-            AlertDialog.Builder(this).apply {
-                setTitle("Yeah!")
-                setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                setPositiveButton("Lanjut") { _, _ ->
-                    val intent = Intent(context, MainActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
-                    finish()
-                }
-                create()
-                show()
+        with(binding){
+            loginButton.setOnClickListener {
+                val email = binding.emailEditText.text.toString()
+                viewModel.saveSession(UserModel(email, "sample_token"))
+                alert()
             }
+            Signup.setOnClickListener{
+                val intent = Intent(this@LoginActivity, SignupActivity::class.java)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun alert(){
+        AlertDialog.Builder(this).apply {
+            setTitle("Yeah!")
+            setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
+            setPositiveButton("Lanjut") { _, _ ->
+                val intent = Intent(context, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+            create()
+            show()
         }
     }
 
