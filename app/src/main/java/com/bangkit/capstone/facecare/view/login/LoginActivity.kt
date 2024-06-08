@@ -28,15 +28,13 @@ class LoginActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this)
     }
 
-    private lateinit var auth: FirebaseAuth
+    private var auth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityLoginBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = FirebaseAuth.getInstance()
 
         setupView()
         setupAction()

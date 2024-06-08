@@ -17,7 +17,7 @@ import com.google.firebase.auth.userProfileChangeRequest
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
-    var firebaseAuth = FirebaseAuth.getInstance()
+    private var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
