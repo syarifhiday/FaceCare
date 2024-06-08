@@ -5,14 +5,19 @@ import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivitySignupBinding
 import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.userProfileChangeRequest
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
+    var firebaseAuth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,6 +26,32 @@ class SignupActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+    }
+
+    private fun processSignup(){
+        val userName = binding.nameEditText.text.toString()
+        val email = binding.emailEditText.text.toString()
+        val password = binding.passwordEditText.text.toString()
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful){
+                    val nameUpdate = userProfileChangeRequest {
+                        displayName = userName
+                    }
+                    val user = task.result.user
+                    user!!.updateProfile(nameUpdate)
+                        .addOnCompleteListener{
+                            startActivity(Intent(this, LoginActivity::class.java))
+                        }
+                        .addOnFailureListener{ error2->
+                            Toast.makeText(this, error2.localizedMessage, LENGTH_SHORT).show()
+                        }
+                }
+            }
+            .addOnFailureListener{ error ->
+                Toast.makeText(this, error.localizedMessage, LENGTH_SHORT).show()
+            }
     }
 
     private fun setupView() {
@@ -39,8 +70,7 @@ class SignupActivity : AppCompatActivity() {
     private fun setupAction() {
         with(binding){
             signupButton.setOnClickListener {
-                val email = binding.emailEditText.text.toString()
-                alert()
+                processSignup()
             }
             back.setOnClickListener{
                 finish()

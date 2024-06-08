@@ -21,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.auth.userProfileChangeRequest
 
 class LoginActivity : AppCompatActivity() {
     private val viewModel by viewModels<LoginViewModel> {
@@ -58,8 +59,7 @@ class LoginActivity : AppCompatActivity() {
         with(binding){
             loginButton.setOnClickListener {
                 showLoading(true)
-                val email = binding.emailEditText.text.toString()
-                viewModel.saveSession(UserModel(email, "sample_token"))
+                processLogin()
                 alert()
             }
             Signup.setOnClickListener{
@@ -72,6 +72,19 @@ class LoginActivity : AppCompatActivity() {
                 signIn()
             }
         }
+    }
+
+    private fun processLogin(){
+        val email = binding.emailEditText.text.toString()
+        val password = binding.passwordEditText.text.toString()
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener {
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            .addOnFailureListener{ error->
+                Toast.makeText(this, error.localizedMessage, Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
