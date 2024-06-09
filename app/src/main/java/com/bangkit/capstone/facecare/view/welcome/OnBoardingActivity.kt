@@ -9,12 +9,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.databinding.ActivityOnBoardingBinding
+import com.bangkit.capstone.facecare.view.login.LoginActivity
+import com.bangkit.capstone.facecare.view.main.MainActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class OnBoardingActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityOnBoardingBinding
     private lateinit var slidePagerAdapter: SlidePagerAdapter
     private lateinit var dots: Array<TextView>
+    private var auth = FirebaseAuth.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +26,7 @@ class OnBoardingActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
+        checkSession()
         binding.backbtn.setOnClickListener {
             if (getitem(0) > 0) {
                 binding.slideViewPager.setCurrentItem(getitem(-1), true)
@@ -33,14 +37,14 @@ class OnBoardingActivity : AppCompatActivity() {
             if (getitem(0) < 2) {
                 binding.slideViewPager.setCurrentItem(getitem(1), true)
             } else {
-                val intent = Intent(this, WelcomeActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
                 finish()
             }
         }
 
         binding.skipButton.setOnClickListener {
-            val intent = Intent(this, WelcomeActivity::class.java)
+            val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -79,6 +83,19 @@ class OnBoardingActivity : AppCompatActivity() {
         }
 
         override fun onPageScrollStateChanged(state: Int) {}
+    }
+
+    private fun checkSession(){
+        auth = FirebaseAuth.getInstance()
+
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            // The user is already signed in, navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // finish the current activity to prevent the user from coming back to the SignInActivity using the back button
+        }
     }
 
     private fun getitem(i: Int): Int {

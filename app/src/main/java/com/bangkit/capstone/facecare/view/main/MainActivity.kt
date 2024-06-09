@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.databinding.ActivityMainBinding
 import com.bangkit.capstone.facecare.view.ViewModelFactory
+import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.scan.ScanActivity
-import com.bangkit.capstone.facecare.view.welcome.WelcomeActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -32,13 +32,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        viewModel.getSession().observe(this) { user ->
-            if (!user.isLogin) {
-                startActivity(Intent(this, WelcomeActivity::class.java))
-                finish()
-            }
-        }
 
         mAuth = FirebaseAuth.getInstance()
 
@@ -100,12 +93,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun signOutAndStartSignInActivity() {
         mAuth.signOut()
 
         mGoogleSignInClient.signOut().addOnCompleteListener(this) {
             // Optional: Update UI or show a message to the user
-            val intent = Intent(this@MainActivity, WelcomeActivity::class.java)
+            val intent = Intent(this@MainActivity, LoginActivity::class.java)
             startActivity(intent)
             finish()
         }

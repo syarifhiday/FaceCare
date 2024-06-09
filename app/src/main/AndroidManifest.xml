@@ -25,9 +25,6 @@
             android:name=".view.scan.ScanActivity"
             android:exported="false" />
         <activity
-            android:name=".view.welcome.WelcomeActivity"
-            android:exported="false"/>
-        <activity
             android:name=".view.signup.SignupActivity"
             android:exported="false" />
         <activity

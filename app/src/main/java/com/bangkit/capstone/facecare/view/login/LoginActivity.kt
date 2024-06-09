@@ -36,6 +36,7 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        checkSession()
         setupView()
         setupAction()
     }
@@ -56,11 +57,9 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         with(binding){
             loginButton.setOnClickListener {
-                showLoading(true)
                 processLogin()
             }
             Signup.setOnClickListener{
-                showLoading(true)
                 val intent = Intent(this@LoginActivity, SignupActivity::class.java)
                 startActivity(intent)
             }
@@ -71,7 +70,21 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun checkSession(){
+        auth = FirebaseAuth.getInstance()
+
+        val currentUser = auth.currentUser
+
+        if (currentUser != null) {
+            // The user is already signed in, navigate to MainActivity
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish() // finish the current activity to prevent the user from coming back to the SignInActivity using the back button
+        }
+    }
+
     private fun processLogin(){
+        showLoading(true)
         val email = binding.emailEditText.text.toString()
         val password = binding.passwordEditText.text.toString()
 

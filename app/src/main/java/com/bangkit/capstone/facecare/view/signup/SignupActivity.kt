@@ -36,7 +36,7 @@ class SignupActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful){
-                    val nameUpdate = userProfileChangeRequest {
+                    var nameUpdate = userProfileChangeRequest {
                         displayName = userName
                     }
                     val user = task.result.user
