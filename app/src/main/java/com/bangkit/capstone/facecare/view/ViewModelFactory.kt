@@ -6,16 +6,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.bangkit.capstone.facecare.data.UserRepository
 import com.bangkit.capstone.facecare.di.Injection
 import com.bangkit.capstone.facecare.view.login.LoginViewModel
-import com.bangkit.capstone.facecare.view.main.MainViewModel
 
 class ViewModelFactory(private val repository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return when {
-            modelClass.isAssignableFrom(MainViewModel::class.java) -> {
-                MainViewModel(repository) as T
-            }
             modelClass.isAssignableFrom(LoginViewModel::class.java) -> {
                 LoginViewModel(repository) as T
             }
