@@ -58,7 +58,6 @@ class LoginActivity : AppCompatActivity() {
             loginButton.setOnClickListener {
                 showLoading(true)
                 processLogin()
-                alert()
             }
             Signup.setOnClickListener{
                 showLoading(true)
@@ -78,7 +77,7 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                startActivity(Intent(this, MainActivity::class.java))
+                alert()
             }
             .addOnFailureListener{ error->
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_SHORT).show()
