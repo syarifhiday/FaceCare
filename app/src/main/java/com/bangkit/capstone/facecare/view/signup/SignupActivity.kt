@@ -6,23 +6,29 @@ import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivitySignupBinding
 import com.bangkit.capstone.facecare.view.login.LoginActivity
-import com.bangkit.capstone.facecare.view.main.MainActivity
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.userProfileChangeRequest
+import com.google.firebase.auth.ktx.userProfileChangeRequest
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySignupBinding
     private var firebaseAuth = FirebaseAuth.getInstance()
+    private var database: DatabaseReference = FirebaseDatabase.getInstance("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        FirebaseApp.initializeApp(this)
 
         setupView()
         setupAction()
@@ -42,15 +48,17 @@ class SignupActivity : AppCompatActivity() {
                     val user = task.result.user
                     user!!.updateProfile(nameUpdate)
                         .addOnCompleteListener{
+                            val userId = user.uid
+                            saveUserToDatabase(userId)
                             startActivity(Intent(this, LoginActivity::class.java))
                         }
                         .addOnFailureListener{ error2->
-                            Toast.makeText(this, error2.localizedMessage, LENGTH_SHORT).show()
+                            Toast.makeText(this, error2.localizedMessage, LENGTH_LONG).show()
                         }
                 }
             }
             .addOnFailureListener{ error ->
-                Toast.makeText(this, error.localizedMessage, LENGTH_SHORT).show()
+                Toast.makeText(this, error.localizedMessage, LENGTH_LONG).show()
             }
     }
 
@@ -94,5 +102,22 @@ class SignupActivity : AppCompatActivity() {
             create()
             show()
         }
+    }
+
+    private fun saveUserToDatabase(userId: String) {
+        val userMap = mapOf(
+            "uid" to userId,
+            "email" to firebaseAuth.currentUser?.email,
+            "name" to firebaseAuth.currentUser?.displayName
+        )
+
+        database.child("users").child(userId).setValue(userMap)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "User registered successfully", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Failed to save user: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                }
+            }
     }
 }

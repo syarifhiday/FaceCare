@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -15,11 +16,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bangkit.capstone.facecare.R
+import com.bangkit.capstone.facecare.data.response.ScanResult
 import com.bangkit.capstone.facecare.databinding.ActivityScanBinding
 import com.bangkit.capstone.facecare.databinding.ActivitySignupBinding
 import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.result.ResultActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ScanActivity : AppCompatActivity() {
 
@@ -27,6 +36,7 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private var selectedImageUri: Uri? = null
+    private val database = Firebase.database("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,6 +109,22 @@ class ScanActivity : AppCompatActivity() {
     }
 
     private fun scanNow(){
-        startActivity(Intent(this, ResultActivity::class.java))
+        val userUid = Firebase.auth.currentUser?.uid
+        val scanHistoryRef = database.getReference("users/$userUid/scanHistory")
+
+        val imageUrl = "https://placehold.co/600x400.png" // Ganti dengan URL gambar dari respons API
+        val skinCondition = "Eczema" // Ganti dengan jenis penyakit kulit dari respons API
+        val treatmentTips = "Use moisturizer regularly." // Ganti dengan tips pengobatan dari respons API
+        val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
+        val scanHistory = ScanResult(imageUrl, skinCondition, treatmentTips, dateTime)
+
+        scanHistoryRef.push().setValue(scanHistory)
+            .addOnSuccessListener {
+                startActivity(Intent(this, ResultActivity::class.java))
+            }
+            .addOnFailureListener { e ->
+                Toast.makeText(this, "Gagal", Toast.LENGTH_LONG).show()
+            }
+
     }
 }

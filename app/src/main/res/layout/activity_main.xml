@@ -132,46 +132,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:id="@+id/tvnama"
-                android:layout_margin="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Nama"/>
 
-            <TextView
-                android:id="@+id/nama"
-                android:layout_marginLeft="15dp"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Richardy"/>
-
-            <TextView
-                android:id="@+id/tvemail"
-                android:layout_margin="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Email"/>
-
-            <TextView
-                android:id="@+id/email"
-                android:layout_marginLeft="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Richardy@ok.com"/>
-            <TextView
-                android:id="@+id/tvuid"
-                android:layout_margin="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Token"/>
-
-            <TextView
-                android:id="@+id/uid"
-                android:layout_marginLeft="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="123456"/>
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp"
+                android:background="@android:color/white"
+                android:scrollbars="vertical" />
         </LinearLayout>
 
 
