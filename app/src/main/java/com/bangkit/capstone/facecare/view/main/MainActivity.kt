@@ -106,6 +106,8 @@ class MainActivity : AppCompatActivity() {
             )
         }
         supportActionBar?.hide()
+
+        binding.greetingText.text = "Hi ${mAuth.currentUser?.displayName}, ${getString(R.string.greeting)}"
     }
 
     private fun setupAction() {

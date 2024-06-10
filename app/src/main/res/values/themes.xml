@@ -3,7 +3,32 @@
     <style name="Base.Theme.LoginWithAnimation" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:fontFamily">@font/my_font_family</item>
+        <item name="fontFamily">@font/my_font_family</item>
+        <item name="textAppearanceBody1">@style/CustomTextAppearance</item>
+        <item name="textAppearanceBody2">@style/CustomTextAppearance</item>
+        <item name="textAppearanceButton">@style/CustomTextAppearance</item>
+        <item name="textAppearanceCaption">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline1">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline2">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline3">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline4">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline5">@style/CustomTextAppearance</item>
+        <item name="textAppearanceHeadline6">@style/CustomTextAppearance</item>
+        <item name="textAppearanceOverline">@style/CustomTextAppearance</item>
+        <item name="textAppearanceSubtitle1">@style/CustomTextAppearance</item>
+        <item name="textAppearanceSubtitle2">@style/CustomTextAppearance</item>
+
     </style>
 
     <style name="Theme.LoginWithAnimation" parent="Base.Theme.LoginWithAnimation" />
+
+    <style name="CustomTextAppearance" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:fontFamily">@font/my_font_family</item>
+        <item name="fontFamily">@font/my_font_family</item>
+    </style>
+    <style name="ToolbarTitleTextAppearance" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:fontFamily">@font/montserrat_extrabold</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>
