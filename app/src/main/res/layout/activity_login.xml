@@ -177,16 +177,13 @@
         <LinearLayout
             android:gravity="center"
             android:background="@drawable/border"
+            android:layout_gravity="center_horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="45dp"
-            android:layout_marginEnd="32dp">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
                 android:layout_marginLeft="11dp"
                 android:layout_marginRight="11dp"
                 android:background="@color/white"
@@ -198,7 +195,7 @@
                 android:layout_width="200dp"
                 android:layout_height="50dp"
                 android:background="@color/blue"
-                android:text="Sign up with Google"
+                android:text="Sign in with Google"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
         </LinearLayout>

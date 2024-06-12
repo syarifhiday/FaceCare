@@ -3,6 +3,7 @@ package com.bangkit.capstone.facecare.view.signup
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
@@ -42,6 +43,7 @@ class SignupActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful){
+                    showLoading(false)
                     val nameUpdate = userProfileChangeRequest {
                         displayName = userName
                     }
@@ -78,7 +80,13 @@ class SignupActivity : AppCompatActivity() {
     private fun setupAction() {
         with(binding){
             signupButton.setOnClickListener {
-                processSignup()
+                if (binding.nameEditText.text.isNullOrEmpty() || binding.emailEditText.text.isNullOrEmpty() || binding.passwordEditText.text.isNullOrEmpty()){
+                    Toast.makeText(this@SignupActivity, "Data harus lengkap", Toast.LENGTH_SHORT).show()
+                }else{
+                    showLoading(true)
+                    processSignup()
+                }
+
             }
             back.setOnClickListener{
                 finish()
@@ -119,5 +127,8 @@ class SignupActivity : AppCompatActivity() {
                     Toast.makeText(this, "Failed to save user: ${task.exception?.message}", Toast.LENGTH_LONG).show()
                 }
             }
+    }
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 }

@@ -55,11 +55,15 @@ class LoginActivity : AppCompatActivity() {
     private fun setupAction() {
         with(binding){
             loginButton.setOnClickListener {
-                showLoading(true)
-                processLogin()
+                if(binding.emailEditText.text.isNullOrEmpty() || binding.passwordEditText.text.isNullOrEmpty()){
+                    Toast.makeText(this@LoginActivity, "Email atau password harus diisi", Toast.LENGTH_SHORT).show()
+                }else{
+                    showLoading(true)
+                    processLogin()
+                }
             }
             Signup.setOnClickListener{
-                showLoading(true)
+//                showLoading(true)
                 val intent = Intent(this@LoginActivity, SignupActivity::class.java)
                 startActivity(intent)
             }
@@ -76,7 +80,11 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                alert()
+//                alert()
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
             }
             .addOnFailureListener{ error->
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_SHORT).show()

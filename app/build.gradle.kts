@@ -63,4 +63,7 @@ dependencies {
 
     implementation("com.airbnb.android:lottie:3.6.1")
     implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+    implementation("com.squareup.okhttp3:okhttp-urlconnection:4.9.3")
+    implementation("com.google.code.gson:gson:2.8.8")
 }
