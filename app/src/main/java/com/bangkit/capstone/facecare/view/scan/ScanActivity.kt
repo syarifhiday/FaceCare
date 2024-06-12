@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
@@ -47,7 +46,6 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-import java.util.concurrent.TimeUnit
 
 class ScanActivity : AppCompatActivity() {
 
@@ -71,7 +69,11 @@ class ScanActivity : AppCompatActivity() {
         }
 
         if (!checkPermissions()) {
-            requestPermissions()
+            ActivityCompat.requestPermissions(
+                this,
+                REQUIRED_PERMISSIONS,
+                REQUEST_CODE_PERMISSIONS
+            )
         }
 
         cameraLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -130,9 +132,7 @@ class ScanActivity : AppCompatActivity() {
 
     private fun openCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-        if (takePictureIntent.resolveActivity(packageManager) != null) {
             cameraLauncher.launch(takePictureIntent)
-        }
     }
 
     private fun openGallery() {
@@ -156,17 +156,14 @@ class ScanActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val client = OkHttpClient.Builder()
-                            .connectTimeout(30, TimeUnit.SECONDS)
-                            .writeTimeout(30, TimeUnit.SECONDS)
-                            .readTimeout(30, TimeUnit.SECONDS)
-                            .build()
+                        val client = OkHttpClient()
                         val request = Request.Builder()
                             .url(urlAPI)
                             .post(body)
                             .build()
 
                         val response = client.newCall(request).execute()
+                        showLoading(false)
 
                         response.use {
                             if (!it.isSuccessful) throw IOException("Unexpected code $it")
@@ -184,12 +181,7 @@ class ScanActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
-                            showLoading(false)
                             Toast.makeText(this@ScanActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
-                        }
-                    } finally {
-                        runOnUiThread {
-                            showLoading(false)
                         }
                     }
                 }
@@ -235,8 +227,9 @@ class ScanActivity : AppCompatActivity() {
         }
     }
 
+
     private fun saveToHistory(skinCondition: String, treatmentTips: String){
-        val imageUrl = "https://placehold.co/600x400.png" // Replace with actual URL from response
+        val imageUrl = "https://placehold.co/600x400.png"
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
         val scanResult = ScanResult(imageUrl, skinCondition, treatmentTips, dateTime)
 
@@ -252,35 +245,21 @@ class ScanActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 runOnUiThread {
-                    showLoading(false)
-                    Toast.makeText(this@ScanActivity, "Gagal menyimpan ke riwayat", Toast.LENGTH_LONG).show()
-                    // Optionally, log the error or handle it in another way
+                    Toast.makeText(this@ScanActivity, "Gagal", Toast.LENGTH_LONG).show()
                 }
             }
     }
 
-    private fun checkPermissions(): Boolean {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
-            val writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            val cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-            readPermission == PackageManager.PERMISSION_GRANTED &&
-                    writePermission == PackageManager.PERMISSION_GRANTED &&
-                    cameraPermission == PackageManager.PERMISSION_GRANTED
-        } else {
-            true
-        }
+
+    private fun checkPermissions() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
     // Method to request permissions
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
-            ),
+            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
             REQUEST_PERMISSION_CODE
         )
     }
@@ -298,9 +277,12 @@ class ScanActivity : AppCompatActivity() {
             }
         }
     }
-
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+    // Companion object for permissions
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
+    }
 }
-
