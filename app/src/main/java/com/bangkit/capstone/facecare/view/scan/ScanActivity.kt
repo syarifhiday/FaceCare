@@ -47,6 +47,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.concurrent.TimeUnit
 
 class ScanActivity : AppCompatActivity() {
 
@@ -155,14 +156,17 @@ class ScanActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.IO).launch {
                     try {
-                        val client = OkHttpClient()
+                        val client = OkHttpClient.Builder()
+                            .connectTimeout(30, TimeUnit.SECONDS)
+                            .writeTimeout(30, TimeUnit.SECONDS)
+                            .readTimeout(30, TimeUnit.SECONDS)
+                            .build()
                         val request = Request.Builder()
                             .url(urlAPI)
                             .post(body)
                             .build()
 
                         val response = client.newCall(request).execute()
-                        showLoading(false)
 
                         response.use {
                             if (!it.isSuccessful) throw IOException("Unexpected code $it")
@@ -180,7 +184,12 @@ class ScanActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
+                            showLoading(false)
                             Toast.makeText(this@ScanActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
+                        }
+                    } finally {
+                        runOnUiThread {
+                            showLoading(false)
                         }
                     }
                 }
@@ -226,7 +235,6 @@ class ScanActivity : AppCompatActivity() {
         }
     }
 
-
     private fun saveToHistory(skinCondition: String, treatmentTips: String){
         val imageUrl = "https://placehold.co/600x400.png" // Replace with actual URL from response
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
@@ -244,7 +252,9 @@ class ScanActivity : AppCompatActivity() {
             }
             .addOnFailureListener { e ->
                 runOnUiThread {
-                    Toast.makeText(this@ScanActivity, "Gagal", Toast.LENGTH_LONG).show()
+                    showLoading(false)
+                    Toast.makeText(this@ScanActivity, "Gagal menyimpan ke riwayat", Toast.LENGTH_LONG).show()
+                    // Optionally, log the error or handle it in another way
                 }
             }
     }
@@ -253,7 +263,10 @@ class ScanActivity : AppCompatActivity() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             val readPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
             val writePermission = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-            readPermission == PackageManager.PERMISSION_GRANTED && writePermission == PackageManager.PERMISSION_GRANTED
+            val cameraPermission = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+            readPermission == PackageManager.PERMISSION_GRANTED &&
+                    writePermission == PackageManager.PERMISSION_GRANTED &&
+                    cameraPermission == PackageManager.PERMISSION_GRANTED
         } else {
             true
         }
@@ -263,7 +276,11 @@ class ScanActivity : AppCompatActivity() {
     private fun requestPermissions() {
         ActivityCompat.requestPermissions(
             this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            arrayOf(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.CAMERA
+            ),
             REQUEST_PERMISSION_CODE
         )
     }
@@ -281,8 +298,9 @@ class ScanActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
-
 }
+
