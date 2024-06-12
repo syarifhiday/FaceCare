@@ -10,8 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LoginWithAnimation">
         <activity
-            android:name=".view.welcome.OnBoardingActivity"
-            android:theme="@style/Base.Theme.LoginWithAnimation"
+            android:name=".view.splash.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +19,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".view.welcome.OnBoardingActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.LoginWithAnimation"/>
+        <activity
             android:name=".view.result.ResultActivity"
             android:exported="false" />
         <activity
@@ -27,7 +30,7 @@
             android:exported="false" />
         <activity
             android:name=".view.welcome.WelcomeActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.signup.SignupActivity"
             android:exported="false" />

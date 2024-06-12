@@ -60,4 +60,7 @@ dependencies {
     implementation("com.google.android.gms:play-services-auth:20.5.0")
     implementation("com.firebaseui:firebase-ui-database:8.0.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    implementation("com.airbnb.android:lottie:3.6.1")
+    implementation("pl.droidsonroids.gif:android-gif-drawable:1.2.19")
 }
