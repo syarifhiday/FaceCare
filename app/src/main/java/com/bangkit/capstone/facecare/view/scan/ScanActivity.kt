@@ -231,7 +231,7 @@ class ScanActivity : AppCompatActivity() {
 
 
     private fun saveToHistory(skinCondition: String, treatmentTips: String){
-        val imageUrl = selectedImageUri.toString()
+        val imageUrl = "https://placehold.co/600x400.png"
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
         val scanResult = ScanResult(imageUrl, skinCondition, treatmentTips, dateTime)
 
