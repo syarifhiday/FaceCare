@@ -132,7 +132,7 @@ class ScanActivity : AppCompatActivity() {
 
     private fun openCamera() {
         val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            cameraLauncher.launch(takePictureIntent)
+        cameraLauncher.launch(takePictureIntent)
     }
 
     private fun openGallery() {
@@ -163,7 +163,9 @@ class ScanActivity : AppCompatActivity() {
                             .build()
 
                         val response = client.newCall(request).execute()
-                        showLoading(false)
+                        runOnUiThread {
+                            showLoading(false) // Move showLoading inside runOnUiThread
+                        }
 
                         response.use {
                             if (!it.isSuccessful) throw IOException("Unexpected code $it")
@@ -229,7 +231,7 @@ class ScanActivity : AppCompatActivity() {
 
 
     private fun saveToHistory(skinCondition: String, treatmentTips: String){
-        val imageUrl = "https://placehold.co/600x400.png"
+        val imageUrl = selectedImageUri.toString()
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
         val scanResult = ScanResult(imageUrl, skinCondition, treatmentTips, dateTime)
 
