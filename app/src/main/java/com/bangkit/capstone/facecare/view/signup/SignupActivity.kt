@@ -1,5 +1,6 @@
 package com.bangkit.capstone.facecare.view.signup
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -8,7 +9,6 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import android.widget.Toast.LENGTH_LONG
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.databinding.ActivitySignupBinding
@@ -33,6 +33,20 @@ class SignupActivity : AppCompatActivity() {
 
         setupView()
         setupAction()
+        playAnimation()
+
+    }
+
+    private fun playAnimation(){
+        val form = binding.formLayoutSignup
+        form.translationY = form.height.toFloat()
+
+        form.post {
+            val animator = ObjectAnimator.ofFloat(form, "translationY", form.height.toFloat(), 0f).apply {
+                duration = 1000
+            }
+            animator.start()
+        }
     }
 
     private fun processSignup(){
@@ -89,9 +103,15 @@ class SignupActivity : AppCompatActivity() {
 
             }
             back.setOnClickListener{
+                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
                 finish()
             }
             Login.setOnClickListener{
+                val intent = Intent(this@SignupActivity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
                 finish()
             }
         }

@@ -1,5 +1,6 @@
 package com.bangkit.capstone.facecare.view.login
 
+import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -7,13 +8,10 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bangkit.capstone.facecare.R
-import com.bangkit.capstone.facecare.data.pref.UserModel
 import com.bangkit.capstone.facecare.databinding.ActivityLoginBinding
-import com.bangkit.capstone.facecare.view.ViewModelFactory
 import com.bangkit.capstone.facecare.view.main.MainActivity
 import com.bangkit.capstone.facecare.view.signup.SignupActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -23,9 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 
 class LoginActivity : AppCompatActivity() {
-    private val viewModel by viewModels<LoginViewModel> {
-        ViewModelFactory.getInstance(this)
-    }
 
     private var auth = FirebaseAuth.getInstance()
     private lateinit var binding: ActivityLoginBinding
@@ -35,8 +30,22 @@ class LoginActivity : AppCompatActivity() {
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
         setupView()
         setupAction()
+        playAnimation()
+    }
+
+    private fun playAnimation(){
+        val form = binding.formLayoutLogin
+        form.translationY = form.height.toFloat()
+
+        form.post {
+            val animator = ObjectAnimator.ofFloat(form, "translationY", form.height.toFloat(), 0f).apply {
+                duration = 1000
+            }
+            animator.start()
+        }
     }
 
     private fun setupView() {
@@ -63,7 +72,6 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
             Signup.setOnClickListener{
-//                showLoading(true)
                 val intent = Intent(this@LoginActivity, SignupActivity::class.java)
                 startActivity(intent)
             }
@@ -80,7 +88,6 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-//                alert()
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
@@ -116,21 +123,6 @@ class LoginActivity : AppCompatActivity() {
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
 
-    private fun alert(){
-        AlertDialog.Builder(this).apply {
-            setTitle("Yeah!")
-            setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-            setPositiveButton("Lanjut") { _, _ ->
-                val intent = Intent(context, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
-            }
-            create()
-            show()
-        }
-    }
-
     private fun firebaseAuthWithGoogle(idToken: String) {
         val credential = GoogleAuthProvider.getCredential(idToken, null)
         auth.signInWithCredential(credential)
@@ -146,6 +138,22 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
     }
+
+    private fun alert(){
+        AlertDialog.Builder(this).apply {
+            setTitle("Yeah!")
+            setMessage("Akunmu sudah jadi nih. Yuk, login.")
+            setPositiveButton("Lanjut") { _, _ ->
+                val intent = Intent(context, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+            create()
+            show()
+        }
+    }
+
 
     // Loading
     private fun showLoading(isLoading: Boolean) {

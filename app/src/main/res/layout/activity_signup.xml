@@ -5,7 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.signup.SignupActivity"
-    android:background="@color/primary">
+    android:background="@color/black">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="444dp"
+        android:src="@drawable/imgaja"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
     <TextView
         android:id="@+id/textView3"
@@ -17,13 +28,13 @@
         android:textStyle="bold"
         android:padding="16dp"
         android:textColor="@color/white"
-        android:background="@drawable/background_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
+        android:id="@+id/formLayoutSignup"
         android:layout_width="match_parent"
         android:layout_height="600dp"
         android:background="@drawable/background"

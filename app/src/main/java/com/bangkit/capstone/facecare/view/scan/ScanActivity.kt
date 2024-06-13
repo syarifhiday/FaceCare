@@ -3,7 +3,6 @@ package com.bangkit.capstone.facecare.view.scan
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -11,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -273,15 +271,6 @@ class ScanActivity : AppCompatActivity() {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Method to request permissions
-    private fun requestPermissions() {
-        ActivityCompat.requestPermissions(
-            this,
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            REQUEST_PERMISSION_CODE
-        )
-    }
-
     // Handle permission request result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -312,6 +301,7 @@ class ScanActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun uploadImageToFirebaseStorage(imageUri: Uri?) {
         if (imageUri == null) {
             Toast.makeText(this, "No image selected", Toast.LENGTH_LONG).show()
@@ -338,6 +328,7 @@ class ScanActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
     // Companion object for permissions
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)

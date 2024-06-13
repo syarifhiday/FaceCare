@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.databinding.ActivityOnBoardingBinding
-import com.bangkit.capstone.facecare.databinding.ActivityWelcomeBinding
 import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.main.MainActivity
 import com.google.firebase.auth.FirebaseAuth
@@ -39,14 +38,16 @@ class OnBoardingActivity : AppCompatActivity() {
             if (getitem(0) < 2) {
                 binding.slideViewPager.setCurrentItem(getitem(1), true)
             } else {
-                val intent = Intent(this, LoginActivity::class.java)
+                val intent = Intent(this@OnBoardingActivity, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
             }
         }
 
         binding.skipButton.setOnClickListener {
-            val intent = Intent(this, LoginActivity::class.java)
+            val intent = Intent(this@OnBoardingActivity, LoginActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(intent)
             finish()
         }

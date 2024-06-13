@@ -35,6 +35,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".view.welcome.OnBoardingActivity"
             android:exported="false"
@@ -44,9 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".view.scan.ScanActivity"
-            android:exported="false" />
-        <activity
-            android:name=".view.welcome.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".view.signup.SignupActivity"
