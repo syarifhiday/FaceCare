@@ -16,6 +16,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Face Care"
+        android:fontFamily="@font/nunito_sans_bold"
+        android:textSize="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/textversion"/>
+    
+    <TextView
+        android:id="@+id/textversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="version 1.0"
+        android:fontFamily="@font/nunito_sans"
+        android:textSize="14sp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
