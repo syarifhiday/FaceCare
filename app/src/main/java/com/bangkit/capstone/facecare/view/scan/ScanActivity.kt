@@ -3,6 +3,7 @@ package com.bangkit.capstone.facecare.view.scan
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -10,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -31,6 +33,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -53,8 +56,10 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var cameraLauncher: ActivityResultLauncher<Intent>
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private var selectedImageUri: Uri? = null
+    private var uploadedImage: Uri? = null
     private val database = Firebase.database("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app")
     private val urlAPI = "https://facecare3-6jxdikw4pa-et.a.run.app/"
+    private val storage = Firebase.storage("gs://facecare-82102.appspot.com")
     private val REQUEST_PERMISSION_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,6 +92,9 @@ class ScanActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Failed to save image", Toast.LENGTH_LONG).show()
                 }
+                pingServer()
+                uploadImageToFirebaseStorage(selectedImageUri)
+
             }
         }
 
@@ -95,6 +103,9 @@ class ScanActivity : AppCompatActivity() {
                 this.selectedImageUri = result.data?.data
                 binding.imageButton.setImageURI(selectedImageUri)
                 binding.imageButton.setBackgroundResource(R.drawable.bg_add_image_transparent)
+                pingServer()
+                uploadImageToFirebaseStorage(selectedImageUri)
+
             }
         }
 
@@ -103,8 +114,7 @@ class ScanActivity : AppCompatActivity() {
         }
 
         binding.scanBtn.setOnClickListener {
-            showLoading(true)
-            scanNow()
+            scanNow(selectedImageUri)
         }
     }
 
@@ -140,10 +150,11 @@ class ScanActivity : AppCompatActivity() {
         galleryLauncher.launch(pickPhotoIntent)
     }
 
-    private fun scanNow() {
-        val uri = selectedImageUri
+    private fun scanNow(imageUri: Uri?) {
+        val uri = imageUri
         if (uri != null) {
-            val filePath = getPathFromUri(uri)
+            showLoading(true)
+            val filePath = getPathFromUri(selectedImageUri)
             if (filePath != null) {
                 val file = File(filePath)
                 val mediaType = "application/octet-stream".toMediaType()
@@ -200,9 +211,14 @@ class ScanActivity : AppCompatActivity() {
         val imageFile = File(filesDir, "temp_image.jpg")
         return try {
             val outputStream = FileOutputStream(imageFile)
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+
+            // Compress the bitmap with quality 80, adjust as needed
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 80, outputStream)
+
             outputStream.flush()
             outputStream.close()
+
+            // Generate Uri using FileProvider
             FileProvider.getUriForFile(this, "${packageName}.fileprovider", imageFile)
         } catch (e: IOException) {
             e.printStackTrace()
@@ -210,8 +226,8 @@ class ScanActivity : AppCompatActivity() {
         }
     }
 
-    private fun getPathFromUri(uri: Uri): String? {
-        return if (uri.scheme == "content") {
+    private fun getPathFromUri(uri: Uri?): String? {
+        return if (uri?.scheme == "content") {
             val tempFile = File(cacheDir, "temp_image.jpg")
             try {
                 contentResolver.openInputStream(uri)?.use { inputStream ->
@@ -225,13 +241,13 @@ class ScanActivity : AppCompatActivity() {
                 null
             }
         } else {
-            uri.path
+            uri?.path
         }
     }
 
 
     private fun saveToHistory(skinCondition: String, treatmentTips: String){
-        val imageUrl = selectedImageUri.toString()
+        val imageUrl = uploadedImage.toString()
         val dateTime = SimpleDateFormat("dd-MM-yyyy HH:mm", Locale.getDefault()).format(Date())
         val scanResult = ScanResult(imageUrl, skinCondition, treatmentTips, dateTime)
 
@@ -279,6 +295,46 @@ class ScanActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun pingServer() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val client = OkHttpClient()
+                val request = Request.Builder()
+                    .url(urlAPI)
+                    .build()
+
+                client.newCall(request).execute().use { response ->
+                    if (!response.isSuccessful) throw IOException("Unexpected code $response")
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+    private fun uploadImageToFirebaseStorage(imageUri: Uri?) {
+        if (imageUri == null) {
+            Toast.makeText(this, "No image selected", Toast.LENGTH_LONG).show()
+            showLoading(false)
+            return
+        }
+
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val fileName = "image_$timeStamp.jpg"
+        val storageRef = storage.reference.child("images/$fileName")
+        val uploadTask = storageRef.putFile(imageUri)
+
+        uploadTask.addOnSuccessListener {
+            storageRef.downloadUrl.addOnSuccessListener { uri ->
+                uploadedImage = uri
+            }
+        }.addOnFailureListener { exception ->
+            Toast.makeText(this, "Upload failed: ${exception.message}", Toast.LENGTH_LONG).show()
+            showLoading(false)
+        }
+    }
+
+
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }

@@ -19,19 +19,20 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/my_font_family"
             android:gravity="center_horizontal"
             android:layout_marginBottom="14dp"
             android:text="@string/scanTitle" />
 
         <ImageButton
             android:id="@+id/imageButton"
-            android:background="@drawable/bg_add_image"
+            android:background="@drawable/bg_add_image_transparent"
             android:layout_height="170dp"
             android:layout_width="200dp"
             android:paddingVertical="20dp"
             android:paddingHorizontal="28dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/add_image" />
+            android:src="@drawable/guide" />
 
     </LinearLayout>
 
@@ -41,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="25dp"
         android:paddingVertical="14dp"
+        android:fontFamily="@font/my_font_family"
         android:textStyle="bold"
         android:backgroundTint="@color/primary"
         android:text="@string/scanButton"

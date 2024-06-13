@@ -13,7 +13,7 @@
     <string name="message_main_page">Selamat Datang di FaceCare.</string>
     <string name="greeting">selamat datang di FaceCare</string>
     <string name="logout">Keluar</string>
-    <string name="scanTitle">Masukan foto muka kamu di sini!.</string>
+    <string name="scanTitle">Masukan foto muka kamu di sini!.\nPastikan seluruh muka kamu terlihat jelas ya.</string>
     <string name="ageTitle">Umur</string>
     <string name="faceTypeTitle">Tipe kulit</string>
     <string name="alergiTitle">Alergi</string>

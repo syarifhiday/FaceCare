@@ -15,6 +15,7 @@
             android:id="@+id/skinDiseaseTextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/my_font_family"
             android:layout_weight="1"
             android:text="lorem ipsum"
             android:textSize="18sp"
@@ -24,6 +25,7 @@
             android:id="@+id/dateTimeTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/my_font_family"
             android:text="2-2-2022"
             android:textSize="12sp"
             android:padding="8dp" />
