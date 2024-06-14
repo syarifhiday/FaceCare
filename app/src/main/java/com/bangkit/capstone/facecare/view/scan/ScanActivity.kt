@@ -26,6 +26,7 @@ import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.data.response.PredictionResponse
 import com.bangkit.capstone.facecare.data.response.ScanResult
 import com.bangkit.capstone.facecare.databinding.ActivityScanBinding
+import com.bangkit.capstone.facecare.view.main.MainActivity
 import com.bangkit.capstone.facecare.view.result.ResultActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.firebase.auth.ktx.auth
@@ -69,6 +70,20 @@ class ScanActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+        val penjelasan = binding.textView
+
+        penjelasan.animate()
+            .alpha(1f)
+            .setDuration(1000)
+            .setStartDelay(300)
+            .start()
+
+        binding.back.setOnClickListener{
+            val intent = Intent(this@ScanActivity, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
         }
 
         if (!checkPermissions()) {

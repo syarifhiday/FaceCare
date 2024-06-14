@@ -24,6 +24,7 @@
     <string name="heading_one">Masalah Kulit</string>
     <string name="heading_two">Solusi Cerdas</string>
     <string name="heading_three">Hasil Terbaik</string>
+    <string name="camera_error">failed to open camera</string>
     <string name="desc_one">Anda sering merasa bingung dengan masalah kulit wajah yang tak kunjung usai?</string>
     <string name="desc_two">Temukan solusi perawatan kulit wajah yang tepat dengan aplikasi scan muka kami.</string>
     <string name="desc_three">Raih kulit wajah yang sehat dan bercahaya dengan perawatan yang tepat.</string>

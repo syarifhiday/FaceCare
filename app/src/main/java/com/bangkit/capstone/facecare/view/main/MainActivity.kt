@@ -25,6 +25,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,9 +44,31 @@ class MainActivity : AppCompatActivity() {
         mAuth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app").reference
 
+        val greetingText = binding.greetingText
+        val descriptionText = binding.descriptionText
+
+        greetingText.animate()
+            .alpha(1f)
+            .setDuration(1000)
+            .setStartDelay(300)
+            .start()
+
+        descriptionText.animate()
+            .alpha(1f)
+            .setDuration(1000)
+            .setStartDelay(600)
+            .start()
+
+        val animator = SlideInLeftAnimator().apply {
+            addDuration = 1000
+            moveDuration = 1000
+            changeDuration = 1000
+        }
+
         // Initialize RecyclerView
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView.layoutManager = LinearLayoutManager(this)
+        recyclerView.itemAnimator = animator // Use SlideInLeftAnimator for sliding animation
 
         // Query to retrieve scan history for current user
         val userUid = mAuth.currentUser?.uid
@@ -72,8 +96,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Set adapter to RecyclerView
-        recyclerView.adapter = adapter
+        // Wrap adapter with animation adapter
+        val animationAdapter = ScaleInAnimationAdapter(adapter)
+        recyclerView.adapter = animationAdapter
 
         setupView()
         setupAction()
@@ -108,10 +133,11 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.greetingText.text = "Hi ${mAuth.currentUser?.displayName}, ${getString(R.string.greeting)}"
+
     }
 
     private fun setupAction() {
-        binding.fab.setOnClickListener{
+        binding.fab.setOnClickListener {
             startActivity(Intent(this, ScanActivity::class.java))
         }
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->

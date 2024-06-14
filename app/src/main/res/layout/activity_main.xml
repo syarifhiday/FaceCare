@@ -66,7 +66,8 @@
                         android:fontFamily="@font/my_font_family"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:text="@string/greeting" />
+                        android:text="@string/greeting"
+                        android:alpha="0"/>
 
                     <TextView
                         android:id="@+id/descriptionText"
@@ -76,6 +77,7 @@
                         android:textColor="@color/cream"
                         android:textSize="14sp"
                         android:text="@string/homeDescription"
+                        android:alpha="0"
                         />
                 </LinearLayout>
             </LinearLayout>
