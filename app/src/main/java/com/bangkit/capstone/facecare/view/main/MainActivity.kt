@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -143,11 +144,30 @@ class MainActivity : AppCompatActivity() {
         binding.topAppBar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.menu1 -> {
-                    signOutAndStartSignInActivity()
+                    alert()
                     true
                 }
                 else -> false
             }
+        }
+    }
+
+    private fun alert(){
+        AlertDialog.Builder(this).apply {
+            setTitle("Keluar?")
+            setMessage("Anda Yakin untuk Logout?")
+            setPositiveButton("Ya") { _, _ ->
+                signOutAndStartSignInActivity()
+                val intent = Intent(context, LoginActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                startActivity(intent)
+                finish()
+            }
+                .setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+            create()
+            show()
         }
     }
 

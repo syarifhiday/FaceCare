@@ -88,12 +88,12 @@ class LoginActivity : AppCompatActivity() {
 
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                startActivity(intent)
-                finish()
+                alert()
+                showLoading(false)
             }
             .addOnFailureListener{ error->
+                showLoading(false)
+                alert2()
                 Toast.makeText(this, error.localizedMessage, Toast.LENGTH_SHORT).show()
             }
     }
@@ -142,9 +142,9 @@ class LoginActivity : AppCompatActivity() {
     private fun alert(){
         AlertDialog.Builder(this).apply {
             setTitle("Yeah!")
-            setMessage("Akunmu sudah jadi nih. Yuk, login.")
+            setMessage("Login Berhasil")
             setPositiveButton("Lanjut") { _, _ ->
-                val intent = Intent(context, LoginActivity::class.java)
+                val intent = Intent(context, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)
                 finish()
@@ -154,6 +154,15 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun alert2(){
+        AlertDialog.Builder(this).apply {
+            setMessage("Email dan Password salah")
+            setPositiveButton("Ok") { _, _ ->
+            }
+            create()
+            show()
+        }
+    }
 
     // Loading
     private fun showLoading(isLoading: Boolean) {

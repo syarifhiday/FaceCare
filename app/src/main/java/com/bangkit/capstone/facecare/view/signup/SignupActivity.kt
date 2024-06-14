@@ -57,7 +57,6 @@ class SignupActivity : AppCompatActivity() {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener{ task ->
                 if (task.isSuccessful){
-                    showLoading(false)
                     val nameUpdate = userProfileChangeRequest {
                         displayName = userName
                     }
@@ -66,7 +65,7 @@ class SignupActivity : AppCompatActivity() {
                         .addOnCompleteListener{
                             val userId = user.uid
                             saveUserToDatabase(userId)
-                            startActivity(Intent(this, LoginActivity::class.java))
+                            alert()
                         }
                         .addOnFailureListener{ error2->
                             Toast.makeText(this, error2.localizedMessage, LENGTH_LONG).show()
@@ -122,6 +121,7 @@ class SignupActivity : AppCompatActivity() {
             setTitle("Yeah!")
             setMessage("Akunmu sudah jadi nih. Yuk, login.")
             setPositiveButton("Lanjut") { _, _ ->
+                showLoading(false)
                 val intent = Intent(context, LoginActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                 startActivity(intent)

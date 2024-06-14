@@ -16,6 +16,7 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,6 +27,7 @@ import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.data.response.PredictionResponse
 import com.bangkit.capstone.facecare.data.response.ScanResult
 import com.bangkit.capstone.facecare.databinding.ActivityScanBinding
+import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.main.MainActivity
 import com.bangkit.capstone.facecare.view.result.ResultActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -207,6 +209,8 @@ class ScanActivity : AppCompatActivity() {
                     } catch (e: Exception) {
                         e.printStackTrace()
                         runOnUiThread {
+                            showLoading(false)
+                            alert()
                             Toast.makeText(this@ScanActivity, "Error: ${e.message}", Toast.LENGTH_LONG).show()
                         }
                     }
@@ -216,6 +220,16 @@ class ScanActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, "No image selected", Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun alert(){
+        AlertDialog.Builder(this).apply {
+            setMessage("Coba lagi")
+            setPositiveButton("Ok") { _, _ ->
+            }
+            create()
+            show()
         }
     }
 
@@ -269,18 +283,27 @@ class ScanActivity : AppCompatActivity() {
         scanHistoryRef.push().setValue(scanResult)
             .addOnSuccessListener {
                 runOnUiThread {
-                    val intent = Intent(this@ScanActivity, ResultActivity::class.java)
-                    intent.putExtra("scanResult", scanResult) // Send scanResult model to ResultActivity
-                    startActivity(intent)
+                    AlertDialog.Builder(this).apply {
+                        setTitle("Yeayy!")
+                        setMessage("Mukamu berhasil discan, yuk liat hasil")
+                        setPositiveButton("Lanjut") { _, _ ->
+                            showLoading(false)
+                            val intent = Intent(this@ScanActivity, ResultActivity::class.java)
+                            intent.putExtra("scanResult", scanResult) // Send scanResult model to ResultActivity
+                            startActivity(intent)
+                        }
+                        create()
+                        show()
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 runOnUiThread {
+
                     Toast.makeText(this@ScanActivity, "Gagal", Toast.LENGTH_LONG).show()
                 }
             }
     }
-
 
     private fun checkPermissions() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
