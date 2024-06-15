@@ -23,8 +23,11 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
@@ -71,11 +74,12 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.itemAnimator = animator // Use SlideInLeftAnimator for sliding animation
 
+        binding.infoHistory.visibility = View.VISIBLE
         // Query to retrieve scan history for current user
         val userUid = mAuth.currentUser?.uid
         val query = database.child("users").child(userUid!!).child("scanHistory").orderByChild("dateTime")
 
-        // Options for FirebaseRecyclerAdapter
+                // Options for FirebaseRecyclerAdapter
         val options = FirebaseRecyclerOptions.Builder<ScanResult>()
             .setQuery(query, ScanResult::class.java)
             .build()
@@ -93,6 +97,16 @@ class MainActivity : AppCompatActivity() {
                     val intent = Intent(this@MainActivity, ResultActivity::class.java)
                     intent.putExtra("scanResult", model) // Send scanResult model to ResultActivity
                     startActivity(intent)
+                }
+            }
+            override fun onDataChanged() {
+                super.onDataChanged()
+                // Check if the adapter contains any items
+                if (itemCount > 0) {
+                    binding.infoHistory.visibility = View.GONE
+                } else {
+                    binding.infoHistory.visibility = View.VISIBLE
+                    binding.infoHistory.text = "Belum ada riwayat scan"
                 }
             }
         }

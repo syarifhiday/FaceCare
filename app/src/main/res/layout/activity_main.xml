@@ -104,6 +104,18 @@
                     android:paddingHorizontal="20dp"
                     android:text="Riwayat Scan" />
 
+                <TextView
+                    android:id="@+id/infoHistory"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="65dp"
+                    android:layout_marginBottom="8dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/my_font_family"
+                    android:paddingHorizontal="20dp"
+                    android:visibility="gone"
+                    android:text="Memuat..." />
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

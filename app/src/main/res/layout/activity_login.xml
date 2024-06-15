@@ -22,43 +22,41 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:text="Login to Account"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        android:padding="16dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="32dp"
+        android:text="Masuk ke akun"
         android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="65dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="8dp"
+        android:text="Masuk untuk memindai dan mendiagnosis kondisi kulit wajah Anda."
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <LinearLayout
         android:id="@+id/formLayoutLogin"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="135dp"
         android:background="@drawable/background"
         android:orientation="vertical"
         android:padding="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
-
-        <TextView
-            android:id="@+id/titleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="32dp"
-            android:text="@string/title_login_page"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guidelineHorizontal" />
 
         <TextView
             android:id="@+id/messageTextView"
@@ -70,6 +68,7 @@
             android:text="@string/message_login_page"
             android:textColor="@color/black"
             android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -149,7 +148,8 @@
             android:layout_marginStart="32dp"
             android:layout_marginTop="32dp"
             android:layout_marginEnd="32dp"
-            android:backgroundTint="@color/navy"
+            android:backgroundTint="@color/primary"
+            android:textStyle="bold"
             android:text="@string/login"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginEnd="6dp"
-                android:text="Or Login With"
+                android:text="Atau masuk dengan"
                 android:textColor="#4D4D4D" />
 
             <View
@@ -191,8 +191,9 @@
 
         <LinearLayout
             android:id="@+id/btngoogle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="32dp"
             android:layout_gravity="center_horizontal"
             android:background="@drawable/border"
             android:gravity="center">
@@ -207,10 +208,10 @@
 
             <Button
                 android:id="@+id/signInButton"
-                android:layout_width="200dp"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/blue"
-                android:text="Sign in with Google"
+                android:background="@drawable/circlekanan"
+                android:text="Akun Google"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
@@ -228,7 +229,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="New User?"
+                android:text="Pengguna baru? "
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -242,7 +243,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:gravity="center"
-                android:text="SignUp"
+                android:text="Daftar"
                 android:textAlignment="center"
                 android:textColor="#3b5998"
                 android:textSize="15sp" />
