@@ -50,4 +50,21 @@
         android:text="@string/detailPenyakitText"
         android:alpha="0"/>
 
+    <TextView
+        android:id="@+id/rekomendasiObatTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:fontFamily="@font/my_font_family"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:text="Rekomendasi Obat" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rekomendasiObatRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp" />
+
 </LinearLayout>
