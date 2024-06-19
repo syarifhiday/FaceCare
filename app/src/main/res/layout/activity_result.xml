@@ -59,7 +59,7 @@
         android:textSize="18sp"
         android:layout_marginTop="16dp"
         android:textStyle="bold"
-        android:text="Rekomendasi Obat" />
+        android:text="Rekomendasi Skincare" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rekomendasiObatRecyclerView"
