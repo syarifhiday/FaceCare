@@ -23,11 +23,11 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.bangkit.capstone.facecare.BuildConfig
 import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.data.response.PredictionResponse
 import com.bangkit.capstone.facecare.data.response.ScanResult
 import com.bangkit.capstone.facecare.databinding.ActivityScanBinding
-import com.bangkit.capstone.facecare.view.login.LoginActivity
 import com.bangkit.capstone.facecare.view.main.MainActivity
 import com.bangkit.capstone.facecare.view.result.ResultActivity
 import com.google.android.material.bottomsheet.BottomSheetDialog
@@ -58,9 +58,9 @@ class ScanActivity : AppCompatActivity() {
     private lateinit var galleryLauncher: ActivityResultLauncher<Intent>
     private var selectedImageUri: Uri? = null
     private var uploadedImage: Uri? = null
-    private val database = Firebase.database("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app")
-    private val urlAPI = "https://facecare3-6jxdikw4pa-et.a.run.app/"
-    private val storage = Firebase.storage("gs://facecare-82102.appspot.com")
+    private val database = Firebase.database(BuildConfig.FIREBASE_RDB_URL)
+    private val urlAPI = BuildConfig.API_URL
+    private val storage = Firebase.storage(BuildConfig.FIREBASE_STORAGE)
     private val REQUEST_PERMISSION_CODE = 1001
 
     override fun onCreate(savedInstanceState: Bundle?) {

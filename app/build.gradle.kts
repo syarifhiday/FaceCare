@@ -17,6 +17,10 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "API_URL", "\"https://facecare3-6jxdikw4pa-et.a.run.app/\"")
+        buildConfigField("String", "FIREBASE_RDB_URL", "\"https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app\"")
+        buildConfigField("String", "FIREBASE_STORAGE", "\"gs://facecare-82102.appspot.com\"")
     }
 
     buildTypes {

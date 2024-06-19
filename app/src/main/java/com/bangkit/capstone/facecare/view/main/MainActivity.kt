@@ -13,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bangkit.capstone.facecare.BuildConfig
 import com.bangkit.capstone.facecare.R
 import com.bangkit.capstone.facecare.data.response.ScanResult
 import com.bangkit.capstone.facecare.databinding.ActivityMainBinding
@@ -22,13 +23,8 @@ import com.bangkit.capstone.facecare.view.scan.ScanActivity
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.ktx.Firebase
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
@@ -46,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         mAuth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance("https://facecare-82102-default-rtdb.asia-southeast1.firebasedatabase.app").reference
+        database = FirebaseDatabase.getInstance(BuildConfig.FIREBASE_RDB_URL).reference
 
         val greetingText = binding.greetingText
         val descriptionText = binding.descriptionText
