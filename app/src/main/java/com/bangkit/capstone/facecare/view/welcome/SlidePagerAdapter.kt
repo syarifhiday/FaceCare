@@ -50,7 +50,6 @@ class SlidePagerAdapter(private val context: Context) : PagerAdapter() {
 
         container.addView(binding.root)
 
-        // Add animations
         startAnimations(binding.titleImage, binding.texttitle, binding.textdeccription)
 
         return binding.root
@@ -66,14 +65,12 @@ class SlidePagerAdapter(private val context: Context) : PagerAdapter() {
         textView2.alpha = 0f
 
 
-        // Slide animation for the image (left to right)
         val slideRight = ObjectAnimator.ofFloat(imageView, "translationX", -30f, 30f).apply {
             duration = 2500
             repeatMode = ObjectAnimator.REVERSE
             repeatCount = ObjectAnimator.INFINITE
         }
 
-        // Fade-in animation for the text
         val fadeInAnimator = ObjectAnimator.ofFloat(textView, "alpha", 0f, 1f).apply {
             duration = 2000
         }
@@ -82,7 +79,6 @@ class SlidePagerAdapter(private val context: Context) : PagerAdapter() {
             duration = 2000
         }
 
-        // Combine animations
         val animatorSet = AnimatorSet()
         animatorSet.playTogether(slideRight, fadeInAnimator, fadeInAnimator2)
         animatorSet.start()

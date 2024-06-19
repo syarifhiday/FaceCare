@@ -202,8 +202,6 @@ class ScanActivity : AppCompatActivity() {
                             val kondisi = predictionResponse.kondisi
                             val treatmentTips = if (kondisi == "Jerawat") getString(R.string.acneDescription) else getString(R.string.healthyDescription)
 
-                            // Handle the response, e.g., parse JSON and update UI
-                            // For demonstration, let's assume response contains imageUrl, skinCondition, and treatmentTips
                             saveToHistory(kondisi, treatmentTips)
                         }
                     } catch (e: Exception) {
@@ -309,7 +307,6 @@ class ScanActivity : AppCompatActivity() {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
     }
 
-    // Handle permission request result
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
@@ -367,7 +364,6 @@ class ScanActivity : AppCompatActivity() {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
-    // Companion object for permissions
     companion object {
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
         private const val REQUEST_CODE_PERMISSIONS = 10

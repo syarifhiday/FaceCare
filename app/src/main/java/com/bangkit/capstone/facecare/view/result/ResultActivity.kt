@@ -52,16 +52,13 @@ class ResultActivity : AppCompatActivity() {
             finish()
         }
 
-        // Tambahkan logika untuk menampilkan data scanResult di layout detail
         if (scanResult != null) {
-            // Contoh menampilkan data ke TextView
             Glide.with(this)
                 .load(scanResult.imageUrl)
                 .into(binding.facePhoto)
             binding.jenisPenyakit.text = scanResult.skinCondition
             binding.detailPenyakit.text = scanResult.treatmentTips
 
-            // Set up RecyclerView for recommendations
             val obatList = if (scanResult.skinCondition == "jerawat") {
                 listOf(
                     Obat(R.drawable.labore, "Labore Mosturizer", "Bagus untuk menyembuhkan wajah jerawat", "https://www.tokopedia.com/watsons/labore-sensitive-skin-care-biomerepair-barrier-revive-cream-50-ml?extParam=ivf%3Dfalse%26keyword%3Dlabore%26search_id%3D20240616152116BB4F66F5AD4FE32CBVDO%26src%3Dsearch&refined=true"),
@@ -70,9 +67,9 @@ class ResultActivity : AppCompatActivity() {
                 )
             } else {
                 listOf(
-                    Obat(R.drawable.laneig, "Laneig Moisturizer", "Bagus untuk wajah sehat", "https://www.tokopedia.com/orviastore/produk-baru-laneige-water-blue-gel-moisturizer-intensive-50ml-moisture-repair-cream-gel-2024-new?extParam=ivf%3Dfalse%26keyword%3Dlaneige+moisturizer%26search_id%3D20240616144758BFE2CE1CAB13473686EA%26src%3Dsearch"),
-                    Obat(R.drawable.skintific, "Skintific Facewash", "Bagus untuk wajah sehat", "https://www.tokopedia.com/skintific/skintific-5x-ceramide-low-ph-cleanser-for-sensitive-skin-15ml?extParam=ivf%3Dfalse%26keyword%3Dskintific%26search_id%3D20240616151744BFE2CE1CAB134713ER8T%26src%3Dsearch"),
-                    Obat(R.drawable.facetology, "Facetology Suncreen", "Bagus untuk wajah sehat", "https://www.tokopedia.com/vignette3/facetology-triple-care-sunscreen-box-normal-77b9c?extParam=cmp%3D1%26ivf%3Dfalse%26keyword%3Dfacetology%26search_id%3D20240616151807A39580E87145200161RF%26src%3Dsearch")
+                    Obat(R.drawable.laneig, "Laneig Moisturizer", "Bagus untuk menjaga kulit wajah", "https://www.tokopedia.com/orviastore/produk-baru-laneige-water-blue-gel-moisturizer-intensive-50ml-moisture-repair-cream-gel-2024-new?extParam=ivf%3Dfalse%26keyword%3Dlaneige+moisturizer%26search_id%3D20240616144758BFE2CE1CAB13473686EA%26src%3Dsearch"),
+                    Obat(R.drawable.skintific, "Skintific Facewash", "Bagus untuk menjaga kulit wajah", "https://www.tokopedia.com/skintific/skintific-5x-ceramide-low-ph-cleanser-for-sensitive-skin-15ml?extParam=ivf%3Dfalse%26keyword%3Dskintific%26search_id%3D20240616151744BFE2CE1CAB134713ER8T%26src%3Dsearch"),
+                    Obat(R.drawable.facetology, "Facetology Suncreen", "Bagus untuk menjaga kulit wajah", "https://www.tokopedia.com/vignette3/facetology-triple-care-sunscreen-box-normal-77b9c?extParam=cmp%3D1%26ivf%3Dfalse%26keyword%3Dfacetology%26search_id%3D20240616151807A39580E87145200161RF%26src%3Dsearch")
                 )
             }
 
