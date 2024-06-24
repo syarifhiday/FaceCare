@@ -1,29 +1,30 @@
+# FaceCare - Acne Detection Application Using Machine Learning
 
-# FaceCare - Aplikasi Deteksi Jerawat Menggunakan Machine Learning
+FaceCare is an Android application that uses acne detection technology on the face through machine learning. This technology is implemented on Cloud Run, allowing users to upload photos of their faces and receive a diagnosis on whether they have acne.
 
-FaceCare adalah aplikasi Android yang menggunakan teknologi deteksi jerawat pada wajah menggunakan machine learning. Teknologi ini diimplementasikan dalam cloudrun, memungkinkan pengguna untuk mengunggah foto wajah mereka dan mendapatkan diagnosa apakah wajahnya terdapat jerawat.
+The application currently uses a machine learning model that can distinguish between healthy faces and faces with acne. However, the development team hopes to further develop this application to detect various other facial conditions.
 
-Aplikasi ini saat ini menggunakan model machine learning yang dapat membedakan antara wajah sehat dan wajah yang memiliki jerawat. Meskipun demikian, tim pengembang berharap aplikasi ini dapat dikembangkan lebih lanjut untuk mendeteksi berbagai kondisi wajah lainnya.
-## Fitur Utama
+![Application Interface](https://github.com/syarifhiday/FaceCare/assets/91935536/8edabd00-93ab-4588-8dec-853d7ec61d4d)
 
-- Deteksi Jerawat: Pengguna dapat mengunggah foto wajah mereka untuk memperoleh diagnosa apakah terdapat jerawat.
-- Teknologi Machine Learning: Model machine learning diterapkan di cloudrun untuk analisis deteksi jerawat.
-- Kemudahan Penggunaan: Antarmuka sederhana dan ramah pengguna untuk memudahkan pengguna dalam menggunakan aplikasi.
+## Main Features
 
-## Credit Tim Pengembang
+- **Acne Detection:** Users can upload photos of their faces to receive a diagnosis on whether they have acne.
+- **Machine Learning Technology:** The machine learning model is deployed on Cloud Run for acne detection analysis.
+- **Ease of Use:** A simple and user-friendly interface makes the application easy to use.
 
-Aplikasi ini dibuat sebagai project akhir program MSIB Bangkit 2024 batch 1. Berikut adalah anggota tim pengembang:
+## Developer Team Credits
 
-Machine Learning:
+This application was created as a final project for the MSIB Bangkit 2024 batch 1 program. Here are the members of the development team:
+
+**Machine Learning:**
 - M299D4KY2585 – Izzan Alfadhil – Universitas Pendidikan Indonesia
 - M006D4KX1789 – Muhammad Fahmi Fauzan – Universitas Brawijaya
 - M011D4KY2407 – Akbar Maulana – Universitas Padjadjaran
 
-Cloud Computing:
+**Cloud Computing:**
 - C299D4KY0873 – Bhima Arya Daniswara – Universitas Pendidikan Indonesia
 - C299D4KY0996 – Rafli Maulid Firmansyah – Universitas Pendidikan Indonesia
 
-Mobile Development:
+**Mobile Development:**
 - A327D4KY4447 – Syarif Hidayatulloh – Universitas Teknologi Yogyakarta
 - A214D4KY4475 – Maulana Rizky Richardy – Universitas Islam Indonesia
-
